@@ -1,7 +1,11 @@
 package com.demo;
 
-import java.util.ArrayList;
-import java.util.function.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class Main6 {
     public static void main(String[] args) {
@@ -23,7 +27,6 @@ public class Main6 {
         BinaryOperator<String> op2 = (str, str2) -> str + ":" + str2;
         System.out.println(op2.apply("Hello","World"));
 
-//        new ArrayList().stream().filter().map()
     }
 
     String sp() {
