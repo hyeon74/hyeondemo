@@ -9,16 +9,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main3 {
-
+    final static List<String> con = List.of("1", "2", "3");
     public Set<String> getTeamClubNames(List<Member> members){
-                    return members.stream() // (0)
-                    .map(Member::getTeam) // (1)
-                    .map(optTeam -> optTeam.flatMap(Team::getClub)) // (2)
-                    .map(optClub -> optClub.map(Club::getName)) // (3)
-                    .flatMap(Optional::stream) // (4)
-                    .collect(Collectors.toSet()); // 스트림에서 값을 꺼내 중복되지 않도록 Set으로 모아줍니다.
+        return members.stream()         // (0)
+                .map(Member::getTeam)   // (1)
+                .map(optTeam -> optTeam.flatMap(Team::getClub)) // (2)
+                .map(optClub -> optClub.map(Club::getName))     // (3)
+                .flatMap(Optional::stream)      // (4)
+                .collect(Collectors.toSet());   // 스트림에서 값을 꺼내 중복되지 않도록 Set으로 모아줍니다.
     }
 
     public List<String> getTeamClubNames2(List<Member> members){
@@ -31,8 +32,10 @@ public class Main3 {
                 //.collect(Collectors.toSet()); // 스트림에서 값을 꺼내 중복되지 않도록 Set으로 모아줍니다.
     }
 
-    public static void main(String[] args) {
 
+
+    public static void main(String[] args) {
+        // 한글 폰트 설정
         List<Integer> list1 = List.of(1, 2, 3);
         List<Integer> list2 = List.of(4, 5, 6);
         List<Integer> list3 = List.of(7, 8, 9);
@@ -89,12 +92,13 @@ public class Main3 {
         long sTime2 = System.nanoTime();
 
         List<String> retList = list4.stream()
-            // .filter((str)
+            // .filter(str)
             .map((mapp) -> mapp.get(mapp.keySet().iterator().next()))
             .toList();
         long eTime2 = System.nanoTime();
 
         long sTime3 = System.currentTimeMillis();
+
         List<String> retList2 = Optional.ofNullable(list4).stream()
             .flatMap(Collection::stream)
             // .filter((str)
@@ -113,6 +117,50 @@ public class Main3 {
         long elapsedTime3 = eTime3 - sTime3;
         System.out.println("elapsedTime2 : " + elapsedTime2 / 1000000000.0);
         System.out.println("elapsedTime3 : " + elapsedTime3 / 1000.0);
+
+        List<Integer> list5 = List.of(7, 8, 9);
+
+        // list5 = null;
+        Stream<List<Integer>> strm1 = Stream.of(list5);
+        System.out.println("strm1:" + strm1.toList().toString());
+
+
+        List<String> CardNo = List.of("1", "2", "3");
+
+
+        for(int i=1; i<5; i++){
+            // final String i2 = String.valueOf(i);
+            // String aa = String.valueOf(i);
+            String ss = Optional.ofNullable(CardNo).stream()
+                .flatMap(Collection::stream)
+                .filter(con::contains)
+                .findAny()
+                .orElseGet(String::new);
+
+            System.out.println(ss);
+        }
+
+        // list5;
+        // for(int i=7; i< 11; i++){
+        //     final int i2 = i;
+        //     Integer ss = Optional.ofNullable(list5).stream()
+        //         .flatMap(Collection::stream)
+        //         .filter((t) -> (t==i2))
+        //         .findAny().orElse(90);
+
+        //     System.out.println(ss);
+        // }
+
+
+        // System.out.println("strm2:" + strm2.toList().toString());
+
+
+
+        // Stream<Integer> strm3 = list5.stream();
+        // System.out.println("strm2:" + strm3.toList().toString());
+
+
+
     }
 
 //         // List<Map<String, String>> lst = new ArrayList<>();
@@ -135,44 +183,44 @@ public class Main3 {
 //         //         .map(str -> 11)
 //         //         .map(str -> 220.0)
 //         //         .toList();
-        
+
 
 //         ClassName<String> a = new ClassName<String>();
 // 		ClassName<Integer> b = new ClassName<Integer>();
- 
+
 // 		a.set("10");
 // 		b.set(10);
- 
+
 // 		// System.out.println("a data : " + a.get());
 // 		// // 반환된 변수의 타입 출력
 // 		// System.out.println("a E Type : " + a.get().getClass().getName());
- 
+
 // 		// System.out.println();
 // 		// System.out.println("b data : " + b.get());
 // 		// // 반환된 변수의 타입 출력
 // 		// System.out.println("b E Type : " + b.get().getClass().getName());
 // 		// System.out.println();
- 
+
 // 		// 제네릭 메소드1 Integer
 // 		System.out.println("<E> returnType : " + ClassName.genericMethod1(3).getClass().getName());
- 
+
 // 		// 제네릭 메소드1 String
 // 		System.out.println("<E> returnType2 : " + ClassName.genericMethod2("ABCD").getClass().getName());
- 
+
 // 		// 제네릭 메소드2 ClassName a
 // 		System.out.println("<T> returnType : " + ClassName.genericMethod1(a).getClass().getName());
- 
+
 // 		// 제네릭 메소드2 Double
 // 		System.out.println("<T> returnType2 : " + ClassName.genericMethod2(3.0).getClass().getName());
-	
+
 //     }
 
 //     public static void main(String[] args) {
 
-//         // Function<Number, Integer> fnc = (aa) -> aa.intValue();
+        // Function<Number, Integer> fnc = (aa) -> aa.intValue();
 //         Predicate<Number> pre = (p) -> p.intValue() > 2;
 
-// //        main.<Number>preTest(predi1);
+//        main.<Number>preTest(predi1);
 //         Main3 main = new Main3();
 //         main.preFunc(pre, 3);
 //         List.of(1,2,4,5).stream().filter(pre).toList();
@@ -217,26 +265,26 @@ class Club {
 
 
 class ClassName<E> {
- 
+
 	private E element; // 제네릭 타입 변수
- 
+
 	void set(E element) { // 제네릭 파라미터 메소드
 		this.element = element;
 	}
- 
+
 	E get() { // 제네릭 타입 반환 메소드
 		return element;
 	}
- 
+
 	// 아래 메소드의 E타입은 제네릭 클래스의 E타입과 다른 독립적인 타입이다.
 	static <F> F genericMethod1(F o) { // 제네릭 메소드
 		return o;
 	}
- 
+
 	static <E> E genericMethod2(E o) { // 제네릭 메소드
 		return o;
 	}
-	
+
 }
 
 class Person {
@@ -247,7 +295,7 @@ class Person {
     int age;
     String name;
 }
-class SaltClass <E extends Comparable<E>> {  
+class SaltClass <E extends Comparable<E>> {
 
 }
 class Student implements Comparable<Student> {
