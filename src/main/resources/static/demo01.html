@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <th:block th:with="map=${list[0].name}, map2=${list[2].name}">
+    <table border="1" >
+        <div th:each="dataMap:${list}">
+            <tr>
+                <td th:text="${dataMap.id}">
+                </td>
+                <td th:text="${dataMap.name}">
+                </td>
+                <td th:if="${dataMap.kn=='2'} or ${dataMap.kn=='1'}" th:text="구분2">
+                </td>
+                <td th:unless="${dataMap.kn=='2'} or ${dataMap.kn=='1'}" th:text="구분-">
+                </td>
+                <td><th:block data-th-if="${dataMap.name}" data-th-text="|[${dataMap.name}]|"/>
+                </td>
+                <td><th:block data-th-if="${not #strings.isEmpty(dataMap.name)}" data-th-text="|[${dataMap.name}]|"/>
+                </td>
+                <td><th:block  data-th-text="|----[${map}]--[${map2}]--|"/>
+                </td>
+            </tr>
+
+        </div>
+    </table>
+
+    <table border="1" >
+        <div th:each="dataDto:${dtoList}">
+            <tr>
+                <td th:text="${dataDto.id}">
+                </td>
+                <td th:text="${dataDto.name}">
+                </td>
+                <td th:if="${dataDto.kn=='2'} or ${dataDto.kn=='1'}" th:text="구분2">
+                </td>
+                <td th:unless="${dataDto.kn=='2'} or ${dataDto.kn=='1'}" th:text="구분-">
+                </td>
+                <td><th:block data-th-if="${dataDto.name}" data-th-text="|[${dataDto.name}]|"/>
+                </td>
+                <td><th:block data-th-if="${not #strings.isEmpty(dataDto.name)}" data-th-text="|[${dataDto.name}]|"/>
+                </td>
+
+            </tr>
+
+        </div>
+    </table>
+
+</body>
+</html>
